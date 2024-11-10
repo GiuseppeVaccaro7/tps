@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatrice</title>
+    <style>
+       
+        .calcolatrice {
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .display {
+            width: 100%;
+            height: 40px;
+            font-size: 1.5em;
+            text-align: right;
+            margin-bottom: 5px;
+        }
+        .bottoni {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        button {
+            height: 40px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="calcolatrice">
+       
+        <input type="text" id="display" class="display" readonly>
+        
+        
+        <div class="bottoni">
+            <button onclick="aggiungiNumero('7')">7</button>
+            <button onclick="aggiungiNumero('8')">8</button>
+            <button onclick="aggiungiNumero('9')">9</button>
+            <button onclick="impostaOperatore('+')">+</button>
+
+            <button onclick="aggiungiNumero('4')">4</button>
+            <button onclick="aggiungiNumero('5')">5</button>
+            <button onclick="aggiungiNumero('6')">6</button>
+            <button onclick="impostaOperatore('-')">-</button>
+
+            <button onclick="aggiungiNumero('1')">1</button>
+            <button onclick="aggiungiNumero('2')">2</button>
+            <button onclick="aggiungiNumero('3')">3</button>
+            <button onclick="impostaOperatore('*')">×</button>
+
+            <button onclick="aggiungiNumero('0')">0</button>
+            <button onclick="cancella()">C</button>
+            <button onclick="calcolaRisultato()">=</button>
+            <button onclick="impostaOperatore('/')">÷</button>
+        </div>
+    </div>
+
+    <script>
+      
+        let primoNumero = 0;
+        let secondoNumero = 0;
+        let operatore = '';
+        let primoNumeroInserito = true;
+
+       
+        function aggiungiNumero(numero) {
+            const display = document.getElementById('display');
+            display.value += numero;
+        }
+
+        
+        function impostaOperatore(op) {
+            const display = document.getElementById('display');
+            
+            primoNumero = parseFloat(display.value);
+            operatore = op;
+            display.value = ''; 
+            primoNumeroInserito = false;
+        }
+
+        
+        function calcolaRisultato() {
+            const display = document.getElementById('display');
+          
+            secondoNumero = parseFloat(display.value);
+            let risultato = 0;
+
+            
+            if (operatore === '+') {
+                risultato = primoNumero + secondoNumero;
+            } else if (operatore === '-') {
+                risultato = primoNumero - secondoNumero;
+            } else if (operatore === '*') {
+                risultato = primoNumero * secondoNumero;
+            } else if (operatore === '/') {
+                risultato = primoNumero / secondoNumero;
+            }
+
+            
+            display.value = risultato;
+            primoNumero = risultato;
+            secondoNumero = 0;
+            operatore = '';
+            primoNumeroInserito = true;
+        }
+
+       
+        function cancella() {
+            const display = document.getElementById('display');
+            display.value = '';
+            primoNumero = 0;
+            secondoNumero = 0;
+            operatore = '';
+            primoNumeroInserito = true;
+        }
+    </script>
+</body>
+</html>
