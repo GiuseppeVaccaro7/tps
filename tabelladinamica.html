@@ -24,6 +24,7 @@
 
 <body><input type="text" id="nome" placeholder="inserisci il nome"><br><input type="text" id="cognome" placeholder="inserisci il cognome"><br><input type="text" id="indirizzo" placeholder="inserisci l'indirizzo"><br><input type="text" id="citta" placeholder="inserisci la città"><br>
     <button onclick="aggiungiDati()">OK</button>
+    <button onclick="pagina2()">Pagina2</button>
     <table id="tabella">
         <tr>
             <th>Nome</th>
@@ -44,21 +45,23 @@
 
         dati.push(nome, cognome, indirizzo, citta)
         stampaTabella()
+        localStorage.setItem("datiAnagrafici",dati);
         document.getElementById("nome").value = "";
         document.getElementById("cognome").value = "";
         document.getElementById("citta").value = "";
         document.getElementById("indirizzo").value = "";
-        dati = []
-
     }
 
     function stampaTabella() {
         document.getElementById("tabella").innerHTML += "<tr>";
         str = ""
-        for (i = 0; i < dati.length; i++) {
+        for (i = dati.length-4; i < dati.length; i++) {
             str += "<td>" + dati[i] + "</td>";
         }
         document.getElementById("tabella").innerHTML += str + "</tr>";
+    }
+    function pagina2(){
+        location.href = "tabelladinamica2.0.html";
     }
 </script>
 
