@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carica CSV e Visualizza Tabella</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Carica un file CSV</h1>
+    <input type="file" onchange="leggiFile(this)">
+    <div id="tabella-container"></div>
+
+    <script>
+        function leggiFile(input) {
+            let file = input.files[0];
+            let lettoreF = new FileReader();
+
+            lettoreF.readAsText(file);
+
+            lettoreF.onload = function () {
+                let contenuto = lettoreF.result;
+                creaTab(contenuto);
+            };
+
+            lettoreF.onerror = function () {
+                console.error("Errore nella lettura del file");
+            };
+        }
+
+        function creaTab(contenuto) {
+            let righe = contenuto.split("\n"); 
+            let tabellaHTML = "<table>";
+
+            for (let i = 0; i < righe.length; i++) {
+                let colonne = righe[i].split(","); 
+
+                tabellaHTML += "<tr>";
+                for (let j = 0; j < colonne.length; j++) {
+                    if (i === 0) {
+                        tabellaHTML += `<th>${colonne[j]}</th>`;
+                    } else {
+                        tabellaHTML += `<td>${colonne[j]}</td>`;
+                    }
+                }
+                tabellaHTML += "</tr>";
+            }
+
+            tabellaHTML += "</table>";
+            document.getElementById("tabella-container").innerHTML = tabellaHTML;
+        }
+    </script>
+</body>
+</html>
