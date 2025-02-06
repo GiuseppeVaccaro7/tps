@@ -20,7 +20,6 @@
         th {
             background-color: #f2f2f2;
         }
-
     </style>
 </head>
 <body>
@@ -48,22 +47,23 @@
         function creaTab(contenuto) {
             let righe = contenuto.split("\n"); 
             let tabellaHTML = "<table>";
-                let x = [];
-                let y = [];
 
             for (let i = 0; i < righe.length; i++) {
                 let colonne = righe[i].split(","); 
-                let anno = colonne[0].slice(1, -1);
-                x.push(anno);
-                let sbarchi = colonne[1].slice(1, -1);
-                y.push(sbarchi);
 
-                tabellaHTML += "<tr>" + "<th>" + anno + "</th>" + "<th>" + sbarchi + "</th>" + "</tr>";
+                tabellaHTML += "<tr>";
+                for (let j = 0; j < colonne.length; j++) {
+                    if (i === 0) {
+                        tabellaHTML += `<th>${colonne[j]}</th>`;
+                    } else {
+                        tabellaHTML += `<td>${colonne[j]}</td>`;
+                    }
+                }
+                tabellaHTML += "</tr>";
             }
 
             tabellaHTML += "</table>";
-            document.getElementById("tabella").innerHTML = tabellaHTML;
-            
+            document.getElementById("tabella-container").innerHTML = tabellaHTML;
         }
     </script>
 </body>
