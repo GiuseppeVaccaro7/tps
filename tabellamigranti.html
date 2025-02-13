@@ -20,29 +20,36 @@
         th {
             background-color: #f2f2f2;
         }
+        canvas{
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin-left: 5%;
+            border: 1px solid black;
+            width: 800px; 
+            height: 600px;
+        }
+
+        ::placeholder{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Carica un file CSV</h1>
     <input type="file" onchange="leggiFile(this)">
-    <div id="tabella-container"></div>
+    <div id="tabella"></div>
 
     <script>
-        function leggiFile(input) {
-            let file = input.files[0];
-            let lettoreF = new FileReader();
-
-            lettoreF.readAsText(file);
-
-            lettoreF.onload = function () {
-                let contenuto = lettoreF.result;
-                creaTab(contenuto);
-            };
-
-            lettoreF.onerror = function () {
-                console.error("Errore nella lettura del file");
-            };
+        function leggiFile(input){
+        let file = input.files[0] //presa in input del file
+        let lettoreF = new FileReader() //creazione oggetto filereader
+        lettoreF.readAsText(file);
+        lettoreF.onload = function() {
+        let contenuto = lettoreF.result; // Contenuto del file letto
+        creaTab(contenuto)
         }
+    }
 
         function creaTab(contenuto) {
             let righe = contenuto.split("\n"); 
@@ -62,7 +69,6 @@
 
             tabellaHTML += "</table>";
             document.getElementById("tabella").innerHTML = tabellaHTML;
-            creaCanvas(x, y)
         }
     </script>
 </body>
